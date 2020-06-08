@@ -26,7 +26,6 @@ variable "aws_region" {
 variable "aws_base_dns_domain" {
   type        = string
   description = "Base public DNS domain under which to create resources"
-  default     = ""
 }
 
 variable "ssh_private_key_path" {

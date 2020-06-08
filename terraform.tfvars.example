@@ -6,7 +6,7 @@ cluster_user_id = ""
 aws_access_key_id     = ""
 aws_secret_access_key = ""
 aws_region            = ""
-# aws_base_dns_domain   = "" # Not currently in use for simplicity
+aws_base_dns_domain   = ""
 
 # Red Hat Subscription Information (See https://access.redhat.com/management/products)
 # Check https://access.redhat.com/management/products to ensure you have at least 3 registrations available

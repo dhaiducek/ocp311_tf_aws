@@ -1,7 +1,7 @@
 #! /bin/bash
 
 # Update node
-# sudo yum -y update
+sudo yum -y update
 
 # Register system with Red Hat
 sudo subscription-manager unregister
@@ -16,4 +16,4 @@ touch /home/ec2-user/cloud-init-complete
 # Signal to Terraform to skip the OCP install steps (prerequisites and deploy_cluster)
 ${skip_install ? "" : "#"}touch /home/ec2-user/ocp-prereq-complete
 ${skip_install ? "" : "#"}touch /home/ec2-user/ocp-install-complete
-# reboot
+reboot
