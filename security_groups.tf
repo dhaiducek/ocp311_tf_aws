@@ -87,7 +87,7 @@ resource "aws_security_group" "ocp311_public_ingress" {
   )
 }
 
-# Allow public egress (for yum updates, git, etc)
+# Allow public egress (for yum updates, git, OCP access)
 resource "aws_security_group" "ocp311_public_egress" {
   name        = "ocp311_public_egress"
   description = "Security group that allows egress to the internet for instances over HTTP and HTTPS."
@@ -118,6 +118,13 @@ resource "aws_security_group" "ocp311_public_egress" {
   egress {
     from_port   = 8443
     to_port     = 8443
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+  # MultiCluster Hub access
+  egress {
+    from_port   = 6443
+    to_port     = 6443
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
