@@ -1,0 +1,20 @@
+# Cluster Name and your User Name (for tagging resources)
+cluster_name    = ""
+cluster_user_id = ""
+
+# AWS Credentials and Configuration
+aws_access_key_id     = ""
+aws_secret_access_key = ""
+aws_region            = ""
+# aws_base_dns_domain   = "" # Not currently in use for simplicity
+
+# Red Hat Subscription Information (See https://access.redhat.com/management/products)
+# Check https://access.redhat.com/management/products to ensure you have at least 3 registrations available
+# openshift_deployment_type = "openshift-enterprise" # Defaults to the Community/OKD variant, "origin"
+rh_subscription_username = ""
+rh_subscription_password = ""
+rh_subscription_pool_id  = ""
+
+# Paths to SSH keypair to access cluster
+ssh_private_key_path = ""
+ssh_public_key_path  = ""

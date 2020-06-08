@@ -1,0 +1,51 @@
+# Create an OSEv3 group that contains the masters, nodes, and etcd groups
+[OSEv3:children]
+masters
+etcd
+nodes
+
+# Set variables common for all OSEv3 hosts
+[OSEv3:vars]
+# SSH user (this user should allow ssh based auth without requiring a password)
+ansible_ssh_user=ec2-user
+# Become root user for operations
+ansible_become=true
+
+# Deployment type; Set to "origin" to deploy the OKD variant
+openshift_deployment_type=${openshift_deployment_type}
+openshift_release=v3.11
+${openshift_deployment_type == "openshift-enterprise" ? "#" : ""}openshift_additional_repos=[{'id': 'centos-okd-ci', 'name': 'centos-okd-ci', 'baseurl': 'https://rpms.svc.ci.openshift.org/openshift-origin-v3.11', 'gpgcheck': '0', 'enabled': '1'}]
+${openshift_deployment_type == "openshift-enterprise" ? "" : "#"}oreg_auth_user=${rh_subscription_username}
+${openshift_deployment_type == "openshift-enterprise" ? "" : "#"}oreg_auth_password=${rh_subscription_password}
+
+# AWS configuration
+openshift_cloudprovider_kind=aws
+openshift_clusterid=${cluster_id}
+openshift_cloudprovider_aws_access_key=${aws_access_key_id}
+openshift_cloudprovider_aws_secret_key=${aws_secret_access_key}
+
+# DNS Hostnames
+openshift_master_cluster_public_hostname=${public_hostname}
+openshift_master_default_subdomain=${public_subdomain}
+
+# Enable htpasswd authentication
+openshift_master_identity_providers=[{'name': 'htpasswd_auth', 'login': 'true', 'challenge': 'true', 'kind': 'HTPasswdPasswordIdentityProvider'}]
+
+# Uncomment the line below to enable metrics for the cluster.
+# openshift_hosted_metrics_deploy=true
+
+# Define set of node groups
+openshift_node_groups=[{'name': 'node-config-master', 'labels': ['node-role.kubernetes.io/master=true']}, {'name': 'node-config-infra', 'labels': ['node-role.kubernetes.io/infra=true']}, {'name': 'node-config-compute', 'labels': ['node-role.kubernetes.io/compute=true']}, {'name': 'node-config-master-infra', 'labels': ['node-role.kubernetes.io/infra=true,node-role.kubernetes.io/master=true']}, {'name': 'node-config-all-in-one', 'labels': ['node-role.kubernetes.io/infra=true,node-role.kubernetes.io/master=true,node-role.kubernetes.io/compute=true']}]
+
+# Host group for Masters
+[masters]
+${master_hostname}
+
+# Host group for etcd
+[etcd]
+${master_hostname}
+
+# Host group for nodes, includes region info
+[nodes]
+${master_hostname} openshift_node_group_name='node-config-master-infra' openshift_schedulable=true
+${node_hostname} openshift_node_group_name='node-config-compute'
