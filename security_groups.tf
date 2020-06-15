@@ -1,6 +1,6 @@
 # Allow SSH access
 resource "aws_security_group" "ocp311_ssh" {
-  name        = "ocp311_ssh"
+  name        = "${local.cluster_id}_ssh"
   description = "Security group to allow SSH"
   vpc_id      = aws_vpc.ocp311.id
   ingress {
@@ -20,7 +20,7 @@ resource "aws_security_group" "ocp311_ssh" {
 
 # Allow all intra-node communication
 resource "aws_security_group" "ocp311_vpc" {
-  name        = "ocp_311_vpc"
+  name        = "${local.cluster_id}_vpc"
   description = "Allow all intra-node communication"
   vpc_id      = aws_vpc.ocp311.id
   ingress {
@@ -46,7 +46,7 @@ resource "aws_security_group" "ocp311_vpc" {
 
 # Allow public ingress
 resource "aws_security_group" "ocp311_public_ingress" {
-  name        = "ocp311_public_ingress"
+  name        = "${local.cluster_id}_public_ingress"
   description = "Allow public access to HTTP, HTTPS, etc"
   vpc_id      = aws_vpc.ocp311.id
 
@@ -89,7 +89,7 @@ resource "aws_security_group" "ocp311_public_ingress" {
 
 # Allow public egress (for yum updates, git, OCP access)
 resource "aws_security_group" "ocp311_public_egress" {
-  name        = "ocp311_public_egress"
+  name        = "${local.cluster_id}_public_egress"
   description = "Security group that allows egress to the internet for instances over HTTP and HTTPS."
   vpc_id      = aws_vpc.ocp311.id
 
