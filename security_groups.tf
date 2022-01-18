@@ -12,9 +12,9 @@ resource "aws_security_group" "ocp311_ssh" {
 
   tags = merge(
     local.common_tags,
-    map(
-      "Name", "${local.cluster_id}-ssh-group"
-    )
+    tomap({
+      "Name" = "${local.cluster_id}-ssh-group"
+    })
   )
 }
 
@@ -38,9 +38,9 @@ resource "aws_security_group" "ocp311_vpc" {
 
   tags = merge(
     local.common_tags,
-    map(
-      "Name", "${local.cluster_id}-internal-vpc-group"
-    )
+    tomap({
+      "Name" = "${local.cluster_id}-internal-vpc-group"
+    })
   )
 }
 
@@ -81,9 +81,9 @@ resource "aws_security_group" "ocp311_public_ingress" {
 
   tags = merge(
     local.common_tags,
-    map(
-      "Name", "${local.cluster_id}-public-ingress"
-    )
+    tomap({
+      "Name" = "${local.cluster_id}-public-ingress"
+    })
   )
 }
 
@@ -131,8 +131,8 @@ resource "aws_security_group" "ocp311_public_egress" {
 
   tags = merge(
     local.common_tags,
-    map(
-      "Name", "${local.cluster_id}-public-egress"
-    )
+    tomap({
+      "Name" = "${local.cluster_id}-public-egress"
+    })
   )
 }

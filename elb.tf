@@ -11,9 +11,9 @@ resource "aws_lb" "master_elb" {
 
   tags = merge(
     local.common_tags,
-    map(
-      "Name", "${local.cluster_id}-master-elb"
-    )
+    tomap({
+      "Name" = "${local.cluster_id}-master-elb"
+    })
   )
 }
 
@@ -57,9 +57,9 @@ resource "aws_lb_target_group" "group_master_elb" {
 
   tags = merge(
     local.common_tags,
-    map(
-      "Name", "${local.cluster_id}-master-elb-group"
-    )
+    tomap({
+      "Name" = "${local.cluster_id}-master-elb-group"
+    })
   )
 }
 # Create Master target group for port 80
@@ -71,9 +71,9 @@ resource "aws_lb_target_group" "group_http_elb" {
 
   tags = merge(
     local.common_tags,
-    map(
-      "Name", "${local.cluster_id}-http-group"
-    )
+    tomap({
+      "Name" = "${local.cluster_id}-http-group"
+    })
   )
 }
 # Create Master target group for port 443
@@ -85,9 +85,9 @@ resource "aws_lb_target_group" "group_https_elb" {
 
   tags = merge(
     local.common_tags,
-    map(
-      "Name", "${local.cluster_id}-https-group"
-    )
+    tomap({
+      "Name" = "${local.cluster_id}-https-group"
+    })
   )
 }
 

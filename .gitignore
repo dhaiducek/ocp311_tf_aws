@@ -1,4 +1,6 @@
 .DS_Store
+*.code-workspace
+.terraform.lock.hcl
 
 # Local .terraform directories
 **/.terraform/*

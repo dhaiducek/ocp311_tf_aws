@@ -38,9 +38,9 @@ resource "aws_instance" "bastion" {
 
   tags = merge(
     local.common_tags,
-    map(
-      "Name", "${local.cluster_id}-bastion"
-    )
+    tomap({
+      "Name" = "${local.cluster_id}-bastion"
+    })
   )
 
   connection {
@@ -87,9 +87,9 @@ resource "aws_instance" "master" {
 
   tags = merge(
     local.common_tags,
-    map(
-      "Name", "${local.cluster_id}-master"
-    )
+    tomap({
+      "Name" = "${local.cluster_id}-master"
+    })
   )
 }
 
@@ -119,8 +119,8 @@ resource "aws_instance" "node" {
 
   tags = merge(
     local.common_tags,
-    map(
-      "Name", "${local.cluster_id}-node"
-    )
+    tomap({
+      "Name" = "${local.cluster_id}-node"
+    })
   )
 }
