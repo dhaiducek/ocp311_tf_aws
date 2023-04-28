@@ -16,7 +16,7 @@ data "aws_ami" "rhel" {
   }
   filter {
     name   = "name"
-    values = ["RHEL-7.7*GA*"]
+    values = ["RHEL-7*"]
   }
 }
 
@@ -52,12 +52,12 @@ resource "aws_instance" "bastion" {
 
   provisioner "file" {
     content     = data.template_file.inventory.rendered
-    destination = "~/inventory.yaml"
+    destination = "./inventory.yaml"
   }
 
   provisioner "file" {
     content     = file(var.ssh_private_key_path)
-    destination = "~/.ssh/id_rsa"
+    destination = "./.ssh/id_rsa"
   }
 }
 
